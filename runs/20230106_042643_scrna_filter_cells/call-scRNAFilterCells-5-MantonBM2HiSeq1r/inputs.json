@@ -1,0 +1,5 @@
+{
+  "h5_count": "/data/projects/genentech-jp/cellranger_output/MantonBM2_HiSeq_1/raw_feature_bc_matrix.h5",
+  "output_dir": "/data/projects/genentech-jp/results",
+  "prefix": "MantonBM2_HiSeq_1"
+}

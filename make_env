@@ -1,0 +1,19 @@
+IMAGE_NAME ?= genentech-jp
+CONTAINER_NAME ?= genentech-jp
+VERSION ?= v1 
+
+NAS_IP_ADDR ?= 192.168.1.39
+NAS_VOLUME_PATH ?= /volume1/gedi-sequencing-data-00
+VOLUMES ?= -v ${HOME}/code/genentech-jp:/home/debian/genentech-jp -v seq_data:/data -v /var/run/docker.sock:/var/run/docker.sock 
+
+PORTS ?= -p 8787:8787 -p 3737:3737 
+NS ?= apollodorus
+
+IMG_ID_LOCAL ?= $(NS)/$(IMAGE_NAME):$(VERSION)
+IMG_ID_REMOTE ?= $(NS)/$(IMAGE_NAME):$(VERSION)
+
+RENV_CACHE ?= /home/debian/data/renv/genentech-jp
+BUILD_ARGS ?= --build-arg RENV_PATHS_CACHE=$(RENV_CACHE)
+RUN_ARGS ?= --device=/dev/fuse --privileged -e "TERM=xterm-256color"
+
+TAIL ?=

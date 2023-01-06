@@ -1,0 +1,22 @@
+{
+  "error": "RunFailed",
+  "task": "scRNAFilterCells",
+  "run": "call-scRNAFilterCells-1-MantonBM7HiSeq1r",
+  "dir": "/home/debian/genentech-jp/runs/20230106_042643_scrna_filter_cells/call-scRNAFilterCells-1-MantonBM7HiSeq1r",
+  "cause": {
+    "error": "RuntimeError",
+    "message": "docker task rejected: invalid mount config for type \"bind\": bind source path does not exist: /home/debian/genentech-jp/runs/20230106_042643_scrna_filter_cells/call-scRNAFilterCells-1-MantonBM7HiSeq1r/command",
+    "run": "call-scRNAFilterCells-1-MantonBM7HiSeq1r",
+    "dir": "/home/debian/genentech-jp/runs/20230106_042643_scrna_filter_cells/call-scRNAFilterCells-1-MantonBM7HiSeq1r",
+    "pos": {
+      "source": "/home/debian/genentech-jp/wdl/scrna_filter.wdl",
+      "line": 3,
+      "column": 1
+    }
+  },
+  "pos": {
+    "source": "/home/debian/genentech-jp/wdl/scrna_filter.wdl",
+    "line": 3,
+    "column": 1
+  }
+}

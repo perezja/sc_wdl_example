@@ -1,0 +1,22 @@
+{
+  "error": "RunFailed",
+  "workflow": "scrna_filter_cells",
+  "run": "scrna_filter_cells",
+  "dir": "/home/debian/genentech-jp/runs/20230106_013425_scrna_filter_cells",
+  "cause": {
+    "error": "DockerException",
+    "message": "Error while fetching server API version: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory'))",
+    "run": "call-scRNAFilterCells-7-MantonBM8HiSeq1r",
+    "dir": "/home/debian/genentech-jp/runs/20230106_013425_scrna_filter_cells/call-scRNAFilterCells-7-MantonBM8HiSeq1r",
+    "pos": {
+      "source": "/home/debian/genentech-jp/wdl/scrna_filter.wdl",
+      "line": 3,
+      "column": 1
+    }
+  },
+  "pos": {
+    "source": "/home/debian/genentech-jp/wdl/scrna_filter.wdl",
+    "line": 28,
+    "column": 1
+  }
+}

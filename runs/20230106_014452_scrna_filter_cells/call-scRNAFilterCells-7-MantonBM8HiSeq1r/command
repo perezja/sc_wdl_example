@@ -1,0 +1,3 @@
+
+/opt/scrna_filter_cells.R /mnt/miniwdl_task_container/work/_miniwdl_inputs/0/raw_feature_bc_matrix.h5 MantonBM8_HiSeq_1 -o /home/debian/data/projects/genentech-jp/results
+    
