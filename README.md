@@ -134,5 +134,5 @@ for k,v in outputs.items():
 Submitted files are relative to head of repo directory
 
   - Source code: `Dockerfile` and `wdl/scrna_filter.wdl`
-  - script: `src
+  - script: `src/scrna_filter_cells.R`
   - UMAP and gene rank plots: `results` directory
