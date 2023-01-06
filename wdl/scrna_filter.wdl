@@ -5,11 +5,10 @@ task scRNAFilterCells {
     input {
         File h5_count
         String prefix
-        String output_dir
     }
 
     command {
-        /opt/scrna_filter_cells.R ~{h5_count} ~{prefix} -o ~{output_dir}
+        /opt/scrna_filter_cells.R ~{h5_count} ~{prefix}
     }
 
     runtime {
@@ -19,9 +18,9 @@ task scRNAFilterCells {
     }
 
     output {
-        File count_matrix_h5ad = output_dir + "/" + prefix + "_counts.h5ad"
-        File umap_png = output_dir + "/" + prefix + "_umap.png"
-        File gene_rank_png = output_dir + "/" + prefix + "_gene_ranks.png"
+        File count_matrix_h5ad = prefix + "_counts.h5ad"
+        File umap_png = prefix + "_umap.png"
+        File gene_rank_png = prefix + "_gene_ranks.png"
     }
 }
 
@@ -29,7 +28,6 @@ workflow scrna_filter_cells {
     input {
         Array[String] donor_ids
         Array[File] donor_counts
-        String output_dir
     }
 
     Array[Pair[String, File]] donor_pairs = zip(donor_ids, donor_counts)
@@ -39,7 +37,6 @@ workflow scrna_filter_cells {
             input:
                 h5_count = count_data.right, 
                 prefix = count_data.left,
-                output_dir = output_dir 
         }
     }
 }

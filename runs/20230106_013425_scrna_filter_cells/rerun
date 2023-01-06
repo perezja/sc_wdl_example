@@ -1,1 +1,0 @@
-pushd /home/debian/genentech-jp && miniwdl run wdl/scrna_filter.wdl -i scrna_filter_input.json -d runs; popd
