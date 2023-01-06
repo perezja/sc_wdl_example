@@ -6,7 +6,7 @@ A synology NAS storing input data was mounted on the local machine at path `mnt_
 
 ### Containerization
 
-The image for running the workflow can be built with `make build` in repo directory
+The image for running the workflow can be built with `make build` in the head repo directory
 
 ### Generating Input JSON
 
@@ -33,7 +33,7 @@ assert(all([os.path.exists(i) for i in h5_files]))
 
 ```python
 output_dir = os.path.join(mnt_path, 'results')
-input_json = {'donor_ids': donor_ids, 'donor_counts': h5_files, 'output_dir': output_dir}
+input_json = {'donor_ids': donor_ids, 'donor_counts': h5_files}
 
 with open('/home/debian/genentech-jp/scrna_filter_input.json', 'w') as fh:
     json.dump(input_json, fh, indent=2)
@@ -61,16 +61,78 @@ print(json.dumps(input_json, indent=2))
         "/data/projects/genentech-jp/cellranger_output/MantonBM2_HiSeq_1/raw_feature_bc_matrix.h5",
         "/data/projects/genentech-jp/cellranger_output/MantonBM3_HiSeq_1/raw_feature_bc_matrix.h5",
         "/data/projects/genentech-jp/cellranger_output/MantonBM8_HiSeq_1/raw_feature_bc_matrix.h5"
-      ],
-      "output_dir": "/data/projects/genentech-jp/results"
+      ]
     }
 
 
 ### Running Workflow
 
-The workflow file `wdl/scrna_filter.wdl` was run using _miniwdl_ as the execution engine of choice.
+The workflow file `wdl/scrna_filter.wdl` was run using _miniwdl_ as the execution engine of choice. All output files and run logs were written to the path specified by `-d` parameter. 
 
 ```
-cd /home/debian/genentech-jp
-miniwdl run wdl/scrna_filter.wdl -i scrna_filter_input.json -d /data/projects/genentech-jp/runs
+miniwdl run wdl/scrna_filter.wdl -i scrna_filter_input.json -d /data/projects/genentech-jp/results
 ```
+
+This yields the output JSON acquired below.
+
+
+```python
+output_json = '/data/projects/genentech-jp/results/_LAST/outputs.json'
+with open(output_json, 'r') as fh:
+    outputs = json.load(fh)
+    
+print(json.dumps(outputs, indent=2))
+```
+
+    {
+      "scrna_filter_cells.scRNAFilterCells.count_matrix_h5ad": [
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.count_matrix_h5ad/0/MantonBM6_HiSeq_1_counts.h5ad",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.count_matrix_h5ad/1/MantonBM7_HiSeq_1_counts.h5ad",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.count_matrix_h5ad/2/MantonBM4_HiSeq_1_counts.h5ad",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.count_matrix_h5ad/3/MantonBM5_HiSeq_1_counts.h5ad",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.count_matrix_h5ad/4/MantonBM1_HiSeq_1_counts.h5ad",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.count_matrix_h5ad/5/MantonBM2_HiSeq_1_counts.h5ad",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.count_matrix_h5ad/6/MantonBM3_HiSeq_1_counts.h5ad",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.count_matrix_h5ad/7/MantonBM8_HiSeq_1_counts.h5ad"
+      ],
+      "scrna_filter_cells.scRNAFilterCells.gene_rank_png": [
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.gene_rank_png/0/MantonBM6_HiSeq_1_gene_ranks.png",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.gene_rank_png/1/MantonBM7_HiSeq_1_gene_ranks.png",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.gene_rank_png/2/MantonBM4_HiSeq_1_gene_ranks.png",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.gene_rank_png/3/MantonBM5_HiSeq_1_gene_ranks.png",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.gene_rank_png/4/MantonBM1_HiSeq_1_gene_ranks.png",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.gene_rank_png/5/MantonBM2_HiSeq_1_gene_ranks.png",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.gene_rank_png/6/MantonBM3_HiSeq_1_gene_ranks.png",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.gene_rank_png/7/MantonBM8_HiSeq_1_gene_ranks.png"
+      ],
+      "scrna_filter_cells.scRNAFilterCells.umap_png": [
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.umap_png/0/MantonBM6_HiSeq_1_umap.png",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.umap_png/1/MantonBM7_HiSeq_1_umap.png",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.umap_png/2/MantonBM4_HiSeq_1_umap.png",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.umap_png/3/MantonBM5_HiSeq_1_umap.png",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.umap_png/4/MantonBM1_HiSeq_1_umap.png",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.umap_png/5/MantonBM2_HiSeq_1_umap.png",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.umap_png/6/MantonBM3_HiSeq_1_umap.png",
+        "/data/projects/genentech-jp/results/20230106_122241_scrna_filter_cells/out/scRNAFilterCells.umap_png/7/MantonBM8_HiSeq_1_umap.png"
+      ]
+    }
+
+
+
+```python
+import shutil
+output_keys = ['scrna_filter_cells.scRNAFilterCells.gene_rank_png', 'scrna_filter_cells.scRNAFilterCells.umap_png']
+os.makedirs('results', exist_ok=True)
+for k,v in outputs.items():
+    if k in output_keys:
+        for outfile in outputs[k]:
+            shutil.copy(outfile, 'results')
+```
+
+### Submission
+
+Submitted files are relative to head of repo directory
+
+  - Source code: `Dockerfile` and `wdl/scrna_filter.wdl`
+  - script: `src
+  - UMAP and gene rank plots: `results` directory

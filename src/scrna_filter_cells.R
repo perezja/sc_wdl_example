@@ -11,7 +11,7 @@ parser$add_argument("--min_features_percent_pos", type="double", default=0.05, h
 parser$add_argument("--n_variable_features", type="integer", default=2000, help="Number of variable features to find for each cluster")
 parser$add_argument("--n_pcs", type="integer", default=50, help="Number of components for dimensional reduction")
 parser$add_argument("--knn_param", type="integer", default=100, help="Number of nearest neighbors")
-parser$add_argument("-o", "--output_dir", type="character", default=getwd(), help="Output directory for rds")
+parser$add_argument("-o", "--output_dir", type="character", default=getwd(), help="Output directory")
 
 args <- parser$parse_args()
 
@@ -62,11 +62,7 @@ sobj_filtered <- Seurat::RunUMAP(sobj_filtered, dims = 1:args$n_pcs)
 # cluster markers
 markers <- Seurat::FindAllMarkers(sobj_filtered, only.pos = T, test.use = "wilcox")
 
-# results
-dir.create(args$output_dir)
-
 # counts matrix
-print('saving h5ad')
 outfile <- file.path(args$output_dir, paste0(args$prefix, '_counts.h5Seurat'))
 SaveH5Seurat(sobj_filtered, filename = outfile)
 Convert(outfile, dest = "h5ad")
