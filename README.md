@@ -2,7 +2,7 @@
 
 This document overviews the steps performed for generating an input JSON and running an example single cell QC and filtering workflow.
 
-A synology NAS storing input data was mounted on the local machine at path `mnt_path.`
+A synology NAS storing input data was mounted on the local machine at path `mnt_path`.
 
 ### Containerization
 
